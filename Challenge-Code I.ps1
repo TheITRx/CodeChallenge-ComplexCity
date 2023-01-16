@@ -35,15 +35,14 @@ I converted the data (input file content) to custom object for easier manipulati
 
 
 param(
-    [Parameter(Position=0,
-    ParameterSetName = "Path")]
-    $path,
+    [Parameter(Position=0)]
+    $path = "input.txt",
 
     [Parameter(ParameterSetName = "browse")]
     [switch]$browse = $False
 )
 
-$path = "C:\Users\enjoy\OneDrive\Misc_Shared\Code Challenge\Sample_Cities1.txt"
+$path = "input.txt"
 
 Function Get-FileName($initialDirectory){
    
@@ -125,17 +124,19 @@ function Create-OutputOne{
     
             [array]$state_city = Get-Converted | ? {$_.population -eq "$pop"} | Sort-Object state,city | select *
 
-            [string]$val = "$pop`r`n" 
-            add-content -path .\Cities_By_Population.txt -value $val
+            [string]$val = $pop
+            #add-content -path .\Cities_By_Population.txt -value $val
+            $val
 
             foreach($s_c in $state_city){
             
                 
-                [string]$val = $s_c.city + ", " + $s_c.state + "`r`nInterstates: "+ ($s_c.Interstates -join ', ') + "`r`n" 
-                add-content -path .\Cities_By_Population.txt -value $val
+                [string]$val = $s_c.city + ", " + $s_c.state + "`r`nInterstates: "+ ($s_c.Interstates -join ', ') #+ "`r`n" 
+                #add-content -path .\Cities_By_Population.txt -value $val
+                $val
                 
-            
             }
+            "`r`n"
 
     }
 }
@@ -154,6 +155,7 @@ Function Create-OutPutTwo{
     }
 
 }
-Create-OutputOne 
-Create-OutputTwo | Out-File .\Interstates_By_City.txt
+#Create-OutputOne 
+Create-OutputTwo
+#| Out-File .\Interstates_By_City.txt
 
