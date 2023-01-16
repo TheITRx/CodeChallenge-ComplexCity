@@ -16,6 +16,7 @@ with open('input.txt','r') as input_file:
 # output structure --> https://pastebin.com/K9TLFeqK
 sorted_list = sorted(objify, key=lambda d: d['population'], reverse=True)
 
+#region answer_1
 sorted_list_by_population = {}
 
 for item in sorted_list:
